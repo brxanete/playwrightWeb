@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { obtenerDatoDesdeExcel } from './utils/excelReader';
+import { obtenerDatoDesdeExcel } from '../utils/excelReader';
 
 
 
@@ -28,7 +28,6 @@ test('info text validation', async ({ page }) => {
 test('user name input validation', async ({ page }) => {
   await page.goto('https://www.facebook.com/');
   const userInput = page.locator('//div/input[@name="email"]');
-  const passInput = page.locator('//div/input[@name="pass"]');
   const data = obtenerDatoDesdeExcel();
 
   await expect(userInput).toBeAttached
@@ -36,15 +35,13 @@ test('user name input validation', async ({ page }) => {
   await expect(userInput).toBeEmpty();
   await expect(userInput).toBeEditable();
   await userInput.fill(data['Correo']);
-  await passInput.fill(data['Clave']);
+
 });
 
 test('password input validation', async ({ page }) => {
   await page.goto('https://www.facebook.com/');
   const passInput = page.locator('//div/input[@name="pass"]');
   const data = obtenerDatoDesdeExcel();
- 
-
   await expect(passInput).toBeAttached
   await expect(passInput).toBeVisible();
   await expect(passInput).toBeEmpty();
@@ -52,6 +49,19 @@ test('password input validation', async ({ page }) => {
   await passInput.fill(data['Clave']);
   
 });
+
+test('login button validation', async ({ page }) => {
+  await page.goto('https://www.facebook.com/');
+  const loginButton = page.locator('//div/button[@name="login"]');
+  const data = obtenerDatoDesdeExcel();
+  await expect(loginButton).toBeAttached
+  await expect(loginButton).toBeVisible();
+});
+
+
+
+
+
 
 
 
