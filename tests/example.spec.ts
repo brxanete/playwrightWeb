@@ -22,30 +22,39 @@ test('info text validation', async ({ page }) => {
   
 });
 
-test('username input validation', async ({ page }) => {
-  await page.goto('https://www.facebook.com/');
-  
-  const userInput = page.locator('//div/input[@name="email"]');
+test.describe('username input validation', () => {
+  datosDePrueba.forEach(({ Correo }) => {
+    test(`Correct username input with user: ${Correo}`, async ({ page }) => {
+      await page.goto('https://www.facebook.com/');
+    
+      const userInput = page.locator('//div/input[@name="email"]');
 
-  await expect(userInput).toBeAttached
-  await expect(userInput).toBeVisible();
-  await expect(userInput).toBeEmpty();
-  await expect(userInput).toBeEditable();
-  await userInput.fill(datosDePrueba['Correo']);
-
+      await expect(userInput).toBeAttached
+      await expect(userInput).toBeVisible();
+      await expect(userInput).toBeEmpty();
+      await expect(userInput).toBeEditable();
+      await userInput.fill(Correo);
+ 
+    });
+  });
 });
 
-test('password input validation', async ({ page }) => {
-  await page.goto('https://www.facebook.com/');
 
-  const passInput = page.locator('//div/input[@name="pass"]');
-
-  await expect(passInput).toBeAttached
-  await expect(passInput).toBeVisible();
-  await expect(passInput).toBeEmpty();
-  await expect(passInput).toBeEditable();
-  await passInput.fill(datosDePrueba['Clave']);
-  
+test.describe('password input validation', () => {
+  datosDePrueba.forEach(({ Clave }) => {
+    test(`Correct username input with pass: ${Clave}`, async ({ page }) => {
+      await page.goto('https://www.facebook.com/');
+    
+      const passInput = page.locator('//div/input[@name="pass"]');
+     
+      await expect(passInput).toBeAttached
+      await expect(passInput).toBeVisible();
+      await expect(passInput).toBeEmpty();
+      await expect(passInput).toBeEditable();
+      await passInput.fill(Clave);
+ 
+    });
+  });
 });
 
 test('login button validation', async ({ page }) => {
@@ -76,6 +85,8 @@ test.describe('sign in valdation', () => {
     });
   });
 });
+
+
 
 
 
