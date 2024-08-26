@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { obtenerDatoDesdeExcel } from '../utils/excelReader';
+import { obtenerDatosDesdeExcel } from '../utils/excelReader';
 
+const datosDePrueba = obtenerDatosDesdeExcel();
 
 
 test('title validation', async ({ page }) => {
@@ -10,8 +11,7 @@ test('title validation', async ({ page }) => {
   await expect(bannerLogo).toBeAttached();
   await expect(bannerLogo).toBeVisible();
   await expect(bannerLogo).toHaveAttribute('alt', 'Facebook');
-  
-  // Expect a title "to contain" a substring.web
+
 
 });
 
@@ -19,44 +19,65 @@ test('info text validation', async ({ page }) => {
   await page.goto('https://www.facebook.com/');
   const infoText = page.locator('//div/h2[@class="_8eso"]')
   await expect(infoText).toHaveText('Connect with friends and the world around you on Facebook.');
-
-  // await page.getByRole('banner', { name: '' }).click();
-
   
 });
 
-test('user name input validation', async ({ page }) => {
+test('username input validation', async ({ page }) => {
   await page.goto('https://www.facebook.com/');
+  
   const userInput = page.locator('//div/input[@name="email"]');
-  const data = obtenerDatoDesdeExcel();
 
   await expect(userInput).toBeAttached
   await expect(userInput).toBeVisible();
   await expect(userInput).toBeEmpty();
   await expect(userInput).toBeEditable();
-  await userInput.fill(data['Correo']);
+  await userInput.fill(datosDePrueba['Correo']);
 
 });
 
 test('password input validation', async ({ page }) => {
   await page.goto('https://www.facebook.com/');
+
   const passInput = page.locator('//div/input[@name="pass"]');
-  const data = obtenerDatoDesdeExcel();
+
   await expect(passInput).toBeAttached
   await expect(passInput).toBeVisible();
   await expect(passInput).toBeEmpty();
   await expect(passInput).toBeEditable();
-  await passInput.fill(data['Clave']);
+  await passInput.fill(datosDePrueba['Clave']);
   
 });
 
 test('login button validation', async ({ page }) => {
   await page.goto('https://www.facebook.com/');
+
   const loginButton = page.locator('//div/button[@name="login"]');
-  const data = obtenerDatoDesdeExcel();
+
   await expect(loginButton).toBeAttached
   await expect(loginButton).toBeVisible();
 });
+
+
+
+test.describe('sign in valdation', () => {
+  datosDePrueba.forEach(({ Correo, Clave }) => {
+    test(`Correct login with user: ${Correo}`, async ({ page }) => {
+      await page.goto('https://www.facebook.com/');
+    
+      const userInput = page.locator('//div/input[@name="email"]');
+      const passwordInput = page.locator('//div/input[@name="pass"]');
+      const loginButton = page.locator('//div/button[@name="login"]');
+      const banner = page.locator('//div[@class="xg87l8a x1iymm2a"]');
+
+      await userInput.fill(Correo);
+      await passwordInput.fill(Clave);
+      await loginButton.click();
+      await expect(banner).toHaveText('Te damos la bienvenida a Facebook, Nicolas');
+    });
+  });
+});
+
+
 
 
 
