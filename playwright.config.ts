@@ -42,7 +42,7 @@ export default defineConfig({
       },
     },
     {
-      name: 'firefox',
+      name: 'firefox', 
       use: {
         ...devices['Desktop Firefox'],
         headless: false // Ejecuta en modo headed
@@ -54,7 +54,7 @@ export default defineConfig({
         ...devices['Desktop Safari'],
         headless: false // Ejecuta en modo headed
       },
-    }
+    },
 
     /* Test against mobile viewports. */
     // {
@@ -67,14 +67,28 @@ export default defineConfig({
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: 'Microsoft Edge',
+      use: { 
+          ...devices['Desktop Edge'], 
+          channel: 'msedge', 
+          headless: true, 
+          launchOptions: {
+              args: ['--headless=new'] 
+          } 
+      },
+  },
+  {
+      name: 'Google Chrome',
+      use: { 
+          ...devices['Desktop Chrome'], 
+          channel: 'chrome', 
+          headless: true, 
+          launchOptions: {
+              args: ['--headless=new'] 
+          } 
+      },
+  },
   ],
 
   /* Run your local dev server before starting the tests */
