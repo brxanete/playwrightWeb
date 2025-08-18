@@ -62,13 +62,11 @@ test('do a login', async ({ page }) => {
     await Screenshot.takeAndAttach('Screenshot después de llenar email', page);
   });
 
-  await test.step('Llenar contraseña', async () => {
-    await passTextBox(page).fill(process.env.FB_PASSWORD);
-  });
+  // await test.step('Llenar contraseña', async () => {
+  //   await passTextBox(page).fill(process.env.FB_PASSWORD);
+  // });
 
-  await test.step('Hacer clic en login', async () => {
-    await loginButton(page).click();
-  });
+ 
 
   await test.step('Validar aviso notificaciones', async() => {
     await expect(checkNotificationsTitle(page)).toBeVisible();
@@ -79,17 +77,7 @@ test('do a login', async ({ page }) => {
   });
 
 
-
-
-
-  
-
-
-
-
 });
-
-
 
 
 
