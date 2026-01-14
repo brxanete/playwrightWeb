@@ -1,18 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { NavigateToPistaPista } from '../tasks/navigateToPistaPista';
+import { ClickHomeButton } from '../tasks/clickHomeButton';
+import { WaitForTimeout } from '../utils/awaits/waitForTimeout';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+test('debería ingresar a Pista Pista y hacer click en TIENDA', async ({ page }) => {
+  const homePage = await NavigateToPistaPista.perform(page);
+  await ClickHomeButton.perform(homePage);
+  await WaitForTimeout.perform(page, 5000);                     
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-});
