@@ -1,11 +1,8 @@
 import { test } from '@playwright/test';
-import { NavigateToPistaPista } from '../tasks/navigateToPistaPista';
-import { ClickHomeButton } from '../tasks/clickHomeButton';
-import { WaitForTimeout } from '../utils/awaits/waitForTimeout';
+import { goToSection } from './helpers/goToSection';
+import { SECTIONS } from '../constants/sections';
 
-test('debería ingresar a Pista Pista y hacer click en TIENDA', async ({ page }) => {
-  const homePage = await NavigateToPistaPista.perform(page);
-  await ClickHomeButton.perform(homePage);
-  await WaitForTimeout.perform(page, 5000);                     
+test('debería ir a la sección elegida fácilmente', async ({ page }) => {
+  // Elige la sección: SECTIONS.X para autocompletado, o 'BROKEN_IMAGES' por clave
+  await goToSection(page, SECTIONS.DROPDOWN);
 });
-
