@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
-import { NavigateToTheInternet } from '../../tasks/navigateToTheInternet';
-import { NavigateToSection } from '../../tasks/navigateToSection';
+import { NavigateToTheInternet } from '../../tasks/navigateTo/navigateToTheInternet';
+import { NavigateToSection } from '../../tasks/navigateTo/navigateToSection';
 import { SECTIONS } from '../../constants/sections';
 import type { SectionName } from '../../constants/sections';
 
