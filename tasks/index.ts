@@ -1,5 +1,7 @@
 export { ClickContextMenu } from './clickContextMenu';
 export { CheckCheckboxes } from './actions/checkCheckboxes';
+export { VerifyAbTestPage } from './actions/verifyAbTestPage';
+export { AddRemoveElements } from './actions/addRemoveElements';
 
 export { NavigateToTheInternet } from './navigateTo/navigateToTheInternet';
 export { NavigateToSection } from './navigateTo/navigateToSection';
