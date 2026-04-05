@@ -1,0 +1,76 @@
+# Azure DevOps CI/CD pipeline para Playwright
+# https://docs.microsoft.com/azure/devops/pipelines/
+
+trigger:
+  branches:
+    include:
+      - main
+      - master
+  paths:
+    exclude:
+      - '*.md'
+      - 'docs/**'
+
+pr:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  CI: 'true'
+  NODE_VERSION: '20.x'
+
+stages:
+  - stage: Test
+    displayName: 'Run tests'
+    jobs:
+      - job: Playwright
+        displayName: 'Playwright E2E'
+        steps:
+          - task: NodeTool@0
+            displayName: 'Use Node.js $(NODE_VERSION)'
+            inputs:
+              versionSpec: '$(NODE_VERSION)'
+
+          - script: |
+              npm ci
+            displayName: 'npm ci'
+
+          - script: |
+              npx playwright install --with-deps chromium
+            displayName: 'Install Playwright Chromium'
+
+          - script: |
+              npm run test
+            displayName: 'Run Playwright tests'
+            env:
+              CI: 'true'
+
+          - task: PublishTestResults@2
+            displayName: 'Publish test results'
+            condition: always()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'test-results/junit.xml'
+              failTaskOnFailedTests: true
+              testRunTitle: 'Playwright Chromium'
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish HTML report'
+            condition: always()
+            inputs:
+              targetPath: 'playwright-report'
+              artifactName: 'playwright-report'
+              publishLocation: 'pipeline'
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish test-results (traces/screenshots)'
+            condition: failed()
+            inputs:
+              targetPath: 'test-results'
+              artifactName: 'playwright-test-results'
+              publishLocation: 'pipeline'

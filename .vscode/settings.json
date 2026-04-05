@@ -1,0 +1,36 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.minimap.enabled": false,
+    "workbench.startupEditor": "none",
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.autofetch": true,
+    "mcp": {
+      "inputs": [],
+      "servers": {
+        "mcp-server-time": {
+          "command": "python",
+          "args": [
+            "-m",
+            "mcp_server_time",
+            "--local-timezone=America/Los_Angeles"
+          ],
+          "env": {}
+        },
+        "playwright": {
+          "url": "http://localhost:8931/mcp",
+          "type": "http"
+        }
+      }
+    },
+    "chat.mcp.discovery.enabled": {
+      "claude-desktop": true,
+      "windsurf": true,
+      "cursor-global": true,
+      "cursor-workspace": true
+    }
+  }
+  
