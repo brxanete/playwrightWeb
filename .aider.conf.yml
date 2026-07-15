@@ -1,8 +1,0 @@
-model: ollama/qwen2.5-coder:1.5b
-stream: false
-auto-lint: false  
-auto-test: true
-test-cmd: "npx playwright test"
-map-tokens: 2048
-auto-commits: false
-pretty: true

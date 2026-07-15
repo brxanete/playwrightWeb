@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/baseTest';
 import { goToSection } from './helpers/goToSection';
 import { SECTIONS } from '../constants/sections';
 import { CheckCheckboxes } from '../tasks/actions/checkCheckboxes';
